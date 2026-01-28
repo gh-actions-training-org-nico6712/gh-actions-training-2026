@@ -19,6 +19,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    needs: [build]
     steps:
       - name: Test
         run: echo Tesing the app...
