@@ -1,0 +1,36 @@
+name: Demo training day 2
+
+on:
+  # Webhook events
+  push:
+    branches:
+      - main
+    
+  # Manual events
+  workflow_dispatch: 
+    inputs:
+      yourName:
+        required: true
+        default: My friend
+env:
+  VAR1: true
+  VAR2: Hello
+  
+jobs:
+  Job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Step 1 (expectation: echo Hello)"
+        run:
+          echo "${{env.VAR2}}"
+        if: env.VAR1 == 'true'
+      - name: "Step 2 (expectation: echo yourName)"
+        run:
+          echo "${{inputs.yourName}}"
+  Job2:
+    runs-on: ubuntu-latest
+    needs: [Job1]
+    steps:
+      - name: Step1
+        run: echo "Good Morning"
+              
